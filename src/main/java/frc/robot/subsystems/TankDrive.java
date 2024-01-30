@@ -26,7 +26,9 @@ import edu.wpi.first.wpilibj.util.WPILibVersion;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants.WheelConstants;
 public class TankDrive extends SubsystemBase{
+  //!!IMPORATANT!! THIS WORKS BEST WITH 5902Vaccum bot. Otherwise, the motor ports might be a tad bit messy. 
 
+  //initializes objects. 
   public DifferentialDrive m_Drive;
   WPI_TalonSRX left1 = new WPI_TalonSRX(1);
   WPI_TalonSRX left2 = new WPI_TalonSRX(2);
@@ -39,18 +41,24 @@ public class TankDrive extends SubsystemBase{
   // WPI_TalonSRX right1 = new WPI_TalonSRX(2);
   // WPI_TalonSRX right2 = new WPI_TalonSRX(3);
 
+  //initializes limit switches. 
   DigitalInput frontLeft = new DigitalInput(0);
   DigitalInput frontRight = new DigitalInput(1);
   DigitalInput backLeft = new DigitalInput(3);
   DigitalInput backRight = new DigitalInput(2);
 
+
+  //claw code is commented out here. (5902 Hook)
   //CANSparkMax claw = new CANSparkMax(10,MotorType.kBrushless);
+  //more unused code goes here
   SparkMaxPIDController pidcont;
   MotorControllerGroup leftmotors = new MotorControllerGroup(left1, left2);
   MotorControllerGroup rightmotors = new MotorControllerGroup(right1, right2);
   RelativeEncoder encoder;
 
     public TankDrive(){
+      //initializes stuff, nothing too important
+      
       //leftmotors.setInverted(true);
       // claw.restoreFactoryDefaults();
       // encoder = claw.getEncoder();
@@ -63,6 +71,8 @@ public class TankDrive extends SubsystemBase{
 
     }
     private void configurePID(){
+      //copnfigures pid constants.
+      
       // pidcont.setP(ClimbConstants.P);
       // pidcont.setI(ClimbConstants.I);
       // pidcont.setD(ClimbConstants.D);
@@ -72,19 +82,25 @@ public class TankDrive extends SubsystemBase{
     }
 
     public void moveTo(double position){
+      //moves claw to reference
+      
       //pidcont.setReference(position, CANSparkMax.ControlType.kPosition);
     }
 
     public void setPosition(double position){
+      //moves the position of the reference
+      
       //encoder.setPosition(position);
     }
     @Override
     public void periodic(){
+      //used to check encoder stuff
       // System.out.print("left1 & 2 " + left1.get() + " / " + left2.get());
       // System.out.print("right & 2 " + right1.get() + " / " + right2.get());
     } 
 
     public double getArmPos(){
+      //gets the encoder arm position, now just returns 0 cause all stuff is commented. 
       //return encoder.getPosition();
       //left1.getSelectedSensorPosition();
       return 0;
@@ -93,6 +109,8 @@ public class TankDrive extends SubsystemBase{
     
     // }
 
+    //adam did this next set of commented stubs due to the power dropping in the 2023 Charged Up season. (I dont think they are necessary) - dan
+  
     //public void setLimits(double motorpower){
       // left1.configClosedloopRamp(motorpower);
       // left2.configClosedloopRamp(motorpower);
@@ -115,7 +133,9 @@ public class TankDrive extends SubsystemBase{
    // public double getPosition(){
      //   return m_encoder.getPosition();
    // }
-   
+
+
+    //gets limits switches positions.   
     public boolean frontRightSwitch(){
       return frontRight.get();
     }
@@ -129,6 +149,7 @@ public class TankDrive extends SubsystemBase{
       return frontLeft.get();
     }
 
+    //sets the speed of the claw, for now is commented out. 
     public void setSpeed(double speed){
       if (this.getArmPos() > 50 && speed > 0){
         //claw.set(0);
@@ -138,13 +159,13 @@ public class TankDrive extends SubsystemBase{
         //claw.set(speed);
       }
     }
-
+    //tries to get encoders but doesnt work. 
     public double getLeftEncoder(){
       //return left1.encoder();
       return 0;
     }
 
-
+    //moves the robot
     public void drive(double left, double right){
       
       //System.out.println(left*1.05);
