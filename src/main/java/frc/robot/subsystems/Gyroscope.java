@@ -11,12 +11,14 @@ import java.lang.Math;
 
 public class Gyroscope extends SubsystemBase{
     
-
-    AHRS m_gyroscope; //h    is documentation I think - tim
+    //oh boy, here we go. The gyroscope is bad to code. -Daniel Sabalakov
+    
+    AHRS m_gyroscope; //h    is documentation I think - timothy tran
     double Rolloffset, Pitchoffset, YawOffset;
     boolean isZeroed;
 
     public Gyroscope(){
+        //instantiates the gyrioscope
         m_gyroscope = new AHRS(I2C.Port.kMXP);
         isZeroed = false;
         SmartDashboard.putBoolean("isZeroed", isZeroed);
