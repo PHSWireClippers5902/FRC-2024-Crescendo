@@ -6,6 +6,7 @@ import com.ctre.phoenix.sensors.CANCoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class EncoderSystem  extends SubsystemBase {
+    //!!IMPORTANT!! THIS IS A SUBSYSTEM STUB. THIS IS STILL BEING WORKED ON FOR THE 2024 Crescendo Season. 
     TalonSRX left2 = new TalonSRX(0);
     TalonSRX left1Encoder = new TalonSRX(1);
     TalonSRX right2 = new TalonSRX(2);
