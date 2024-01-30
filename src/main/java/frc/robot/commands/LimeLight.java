@@ -10,7 +10,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Timer;
 
 public class LimeLight extends Command{
-
+    //!!IMPORTANT!! THIS ONLY WORKS WITH ROBOTS THAT HAVE A LIMELIGHT, but THIS SUBSYSTEM IS MOSTLY FOR GERALD, until Dan changes it. 
+    //ton of initializes variables
     private double x = 0;
     private double y = 0;
     private double nums = 0;
@@ -21,6 +22,7 @@ public class LimeLight extends Command{
     private TankDrive tank;
     private int autocorrect = 0;
     public LimeLight(LimeLightValues limelightvalues, XboxController xbox, TankDrive m_tank){
+        //this part is essential, it is mapping of objects to existing objects, and adding subsystem requirements. 
         m_xbox =  xbox;
         tank = m_tank;
         values = limelightvalues;
@@ -34,14 +36,7 @@ public class LimeLight extends Command{
 
     @Override
     public void execute(){
-        // if (timer.get() > 0.5){
-        //     System.out.println("x: " + values.getTx());
-        //     System.out.println("y: " + values.getTy());
-        //     System.out.println("area: " + values.getTa());
-        //     timer.reset();
-        //     timer.start();
-        
-        // }
+        //sets values to offsets diagramed by limelight. 
         x = values.getTx();
         y = values.getTy();
         area = values.getTa();
@@ -52,11 +47,11 @@ public class LimeLight extends Command{
         SmartDashboard.putNumber("LimelightArea", area);
         SmartDashboard.putNumber("DistanceFromGoal", values.getInchesFromGoal());
         SmartDashboard.putNumber("Limelight Values: ",nums);
+        //base position control. 
         float Kp = -0.1f;
         float min_command = 0.05f;
-        
-        //std::shared_ptr<NetworkTable> table = NetworkTable::GetTable("limelight");
-        //float tx = table->GetNumber("tx");
+
+        //type of driving, just like the drivewithtank command. If this is commented, then it means that the robot isn't being used. Uncomment to use. 
         if (m_xbox.getXButton()){
             //autocorrect = 2;
         }
@@ -71,8 +66,10 @@ public class LimeLight extends Command{
         }
         if (autocorrect == 1)
         {
+            //gets the heading error and adjusts based on that. 
             double heading_error = -values.getTx();
             double steering_adjust = 0.0;
+            //if the heading error is greater than 0.7, then it will adjust the steering. 
             if (Math.abs(heading_error) > 0.7) 
             {
                 if (heading_error < 0) 
@@ -84,6 +81,8 @@ public class LimeLight extends Command{
                     steering_adjust = Kp*heading_error - min_command;
                 }
             }
+            //actually drives the tankdrive based on the error 
+            
             //tank.drive(-0.1*steering_adjust, 0.1*steering_adjust); 
             //left_command += steering_adjust;
             //right_command -= steering_adjust;
@@ -94,6 +93,8 @@ public class LimeLight extends Command{
             else if (Math.abs(heading_error) < 0.7){
                 //tank.drive(0,0);
             }
+
+            //displays the error
             SmartDashboard.putNumber("heading_error",heading_error);
         }
 
@@ -103,7 +104,7 @@ public class LimeLight extends Command{
         if (autocorrect == 2){
 
 
-
+            //sets the error adjustment values to the PID control. 
             Kp = -0.1f;
             min_command = 0.05f;
 
@@ -130,7 +131,7 @@ public class LimeLight extends Command{
             //left_command += steering_adjust;
             //right_command -= steering_adjust;
         
-            
+            //displays stuff, and this doubles down and gets the distance from the goal. 
             SmartDashboard.putNumber("heading_error",heading_error);
             double xdist = values.getInchesFromGoal();
             double err = 4;
@@ -152,7 +153,7 @@ public class LimeLight extends Command{
             {
                 sp = 0;
             }
-            
+            //drives the steering to the sum of both of the adjusted movements. 
             SmartDashboard.putNumber("Steering_adjust: ", steering_adjust);
             //PART THAT MAKES STUFF MOVE
             //tank.drive(-0.1*steering_adjust+sp, 0.1*steering_adjust+sp);
