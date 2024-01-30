@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class FlyWheel extends SubsystemBase{
+    //CODE STUB FOR THE 2024 Crescendo Season. 
     CANSparkMax flywheel = new CANSparkMax(9, MotorType.kBrushless);
 
     public void FlyWheel(){
