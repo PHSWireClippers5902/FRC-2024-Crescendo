@@ -16,11 +16,12 @@ public class PneumaticBoard extends SubsystemBase {
   Compressor pcmCompressor;
   
   public PneumaticBoard(){
-
+    //new pneumatics are created. 
     exampleSingle = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
     pcmCompressor  = new Compressor(20, PneumaticsModuleType.CTREPCM);
   }
   public boolean compenabled(){
+    //returns if the compressor is enabled. 
     //return pcmCompressor.isEnabled();
     return true;
   }
@@ -28,10 +29,10 @@ public class PneumaticBoard extends SubsystemBase {
   public void actuateTrue(){
    
     // Initialize the Solenoid so it knows where to start.  Not required for single solenoids.
-    //exampleSingle.
     exampleSingle.set(true);
   }
   public void actuateFalse(){
+    //turns the solenoid off. 
     exampleSingle.set(false);
   }
 
