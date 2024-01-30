@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 public class PneumaticBoard extends SubsystemBase {
+  //!!IMPORTANT!! ONLY WORKS ON ROBOTS WITH A SOLENOID. (5902PAT). The test board doesn't work as of 01/29/2024.
   /** Creates a new pneumaticBoard. */
 
   Solenoid exampleSingle; 
