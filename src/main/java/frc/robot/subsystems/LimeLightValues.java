@@ -13,12 +13,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class LimeLightValues extends SubsystemBase{
+    //!!IMPORTANT!! ONLY WORKS ON ROBOTS WITH A LIMELIGHT. IF THEY DON't HAVE A LIMELIGHT, then this is most likely commented out so u never have to check it out. 
+
+    //networktable for getting data
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
     NetworkTableEntry ta = table.getEntry("ta");
     NetworkTableEntry tv = table.getEntry("tv");
-    
+
+    //constants that are used in calculatino. 
     double targetOffsetAngle_Vertical = ty.getDouble(0.0);
     // how many degrees back is your limelight rotated from perfectly vertical?
     double limelightMountAngleDegrees = 0;
@@ -36,6 +40,7 @@ public class LimeLightValues extends SubsystemBase{
 
 
     public LimeLightValues(){
+        //grabs instances. 
         NetworkTableInstance instance = table.getInstance();
         
     
@@ -51,11 +56,11 @@ public class LimeLightValues extends SubsystemBase{
         double x = tx.getDouble(0.0);
         // double y = ty.getDouble(0.0);
         // double area = ta.getDouble(0.0);
-        // //post to smart dashboard periodically
         return x;
     
     }
     public double getTv(){
+        //returns tv (some sorta stuff.)
         double v = tv.getDouble(0.0);
         return v;
 
@@ -65,7 +70,6 @@ public class LimeLightValues extends SubsystemBase{
         //read values periodically
         //double x = tx.getDouble(0.0);
         double y = ty.getDouble(0.0);
-        //post to smart dashboard periodically
         return y;
     
     }
@@ -75,7 +79,6 @@ public class LimeLightValues extends SubsystemBase{
         // double x = tx.getDouble(0.0);
         // double y = ty.getDouble(0.0);
         double area = ta.getDouble(0.0);
-        //post to smart dashboard periodically
         return area;
     
     }
@@ -84,6 +87,7 @@ public class LimeLightValues extends SubsystemBase{
 
     // }
     public double getInchesFromGoal(){
+        //gets the inches from goal, duh :0
         NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
         ty = table.getEntry("ty");
         targetOffsetAngle_Vertical = ty.getDouble(0.0);
