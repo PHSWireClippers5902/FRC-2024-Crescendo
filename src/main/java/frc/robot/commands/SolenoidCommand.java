@@ -6,11 +6,12 @@ import edu.wpi.first.wpilibj.XboxController;
 
 
 public class SolenoidCommand extends Command {
-
+  //!!IMPORATNT!! ONLY WORKS WITH ROBOTS THAT HAVE A PNEUMATIC SYSTEM. IF THIS IS COMMENTED< THEN UNCOMMENT THIS OUT> 
   private final PneumaticBoard m_pneumatics;
   private XboxController m_box;
 
   public SolenoidCommand(PneumaticBoard pneumatics, XboxController controller){
+    //important: maps objects to existing objecst. 
     m_pneumatics = pneumatics;
     m_box = controller;
     addRequirements(m_pneumatics);
@@ -18,10 +19,12 @@ public class SolenoidCommand extends Command {
 
   @Override
   public void initialize() {
-    
+    //no instantialized method. 
   }
   @Override
   public void execute() {
+
+    //commented out jibber jabber. 
     
     //System.out.println(m_pneumatics.compenbaled());
     
@@ -39,6 +42,8 @@ public class SolenoidCommand extends Command {
     //  if (m_box.getLeftBumper()){
     //   m_pneumatics.actuateFalse();
     //  }
+
+    //if the buttons are hit, then the piston will actuate. 
     if (m_box.getLeftStickButton()){
       m_pneumatics.actuateTrue();
     }
