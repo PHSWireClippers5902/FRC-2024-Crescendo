@@ -9,13 +9,15 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DeepSpace extends SubsystemBase{
+    //!!IMPORTANT!! THIS ONLY WORKS ON THE DUCKBOT. ANYWHERE ELSE AND THIS WILL MOST LIKELY FAIL...... so I won't be spending much time commenting this cause no one actually uses DUCK :skull:
     
     //PneumaticHub hub;
+    //initailizes the motor controllers, solneoid, and compressor. 
     WPI_TalonSRX frontLeft,frontRight,backLeft,backRight,intakeleft,intakeright;
-    
     Solenoid bl,br,fl,fr;
     Compressor comp;
     public DeepSpace(){
+        //maps objects to existing objects. 
         comp = new Compressor(20,PneumaticsModuleType.CTREPCM);
         // bl = new Solenoid(PneumaticsModuleType.CTREPCM,0);
         // br = new Solenoid(PneumaticsModuleType.CTREPCM,0);
@@ -32,15 +34,17 @@ public class DeepSpace extends SubsystemBase{
 
     }
     public void moveLeft(double speed){
+        //moves left motors
         frontLeft.set(speed);
         backLeft.set(speed);
     }
     public void moveRight(double speed){
+        //moves right motors
         frontRight.set(speed);
         backRight.set(speed);
     }
     public void moveIntake(double speed){
-
+        //moves the intake at the same speed. 
         intakeleft.set(speed);
         intakeright.set(speed);
     }
