@@ -22,6 +22,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+
 import static frc.robot.Constants.ControllerConstants;
 import static frc.robot.Constants.AimConstants;
 import static frc.robot.Constants.ClimbConstants;
@@ -31,54 +33,45 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class RobotContainer {
   // create inputs
+  //public final Joystick joystick1 = new Joystick(2);
   public final XboxController xbox = new XboxController(0);
-  //public final DeepSpace deepSpace = new DeepSpace();
-  //public final XboxController xbox2 = new XboxController(1);
-  //create subsytem
-  public final Gyroscope m_gyroscope = new Gyroscope();
-  public final TankDrive m_TankDrive = new TankDrive();
-  public final PneumaticBoard m_pneumatic = new PneumaticBoard();
-  public final LimeLightValues m_value = new LimeLightValues();
   private final MecanumSystem m_mecanum = new MecanumSystem();
-  public final FlyWheel m_fly = new FlyWheel();
-  public final DoubleArm m_arm = new DoubleArm();
+  public final FlyWheelAndHook m_fly = new FlyWheelAndHook();
+  public final LimeLightValues m_value = new LimeLightValues();
   //create Commands
-  //public final DeepSpaceCommand m_spaceCommand = new DeepSpaceCommand(xbox, deepSpace);
-  public final GyroCommand m_gyroCommand = new GyroCommand(xbox, m_gyroscope);
-  public final AutonomousCommand m_autonomous = new AutonomousCommand(m_TankDrive, xbox, m_value);
-  public final DriveWithTank m_TankCommand = new DriveWithTank(m_TankDrive, xbox,m_mecanum);
-  public final SolenoidCommand m_pneumaticControl = new SolenoidCommand(m_pneumatic,xbox);
-  public final LimeLight m_limelight = new LimeLight(m_value,xbox, m_TankDrive);
- public final FlyCommand m_flycommand = new FlyCommand(xbox, m_fly);
-  public final DoubleArmCommand m_armcommand = new DoubleArmCommand(xbox, m_arm);
+  public final DriveWithTank m_TankCommand = new DriveWithTank(xbox,m_mecanum);
+  public final LimeLight m_limelight = new LimeLight(m_value,xbox, m_mecanum);
+  public final FlyCommand m_flycommand = new FlyCommand(xbox, m_fly,m_mecanum);
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
+
   //Default Constructor
   public RobotContainer(){
-    //deepSpace.setDefaultCommand(m_spaceCommand);
-    //set default commands
-    m_value.setDefaultCommand(m_limelight);
+
+    m_chooser.setDefaultOption("Autonomous Command", new AutonomousCommand(m_mecanum));    
     m_mecanum.setDefaultCommand(m_TankCommand);
-    m_pneumatic.setDefaultCommand(m_pneumaticControl);
-    m_gyroscope.setDefaultCommand(m_gyroCommand);
     m_fly.setDefaultCommand(m_flycommand);
-    m_arm.setDefaultCommand(m_armcommand);
+    m_value.setDefaultCommand(m_limelight);
+
     
 }
 
-private void configureButtonBindings(){ 
-    
-  // new JoystickButton(analogstuff, 1)
-  // .toggleWhenPressed(m_pneumaticControl);
+  private void configureButtonBindings(){ 
+      //does nothing 
+  }
   
-  // new JoystickButton(joystickone,5)
-  // .whileHeld(m_autoBalance);
-
-  //Left turns positive, right turns negative (only) 
-} 
+  //for some reason it is important............. idk why
   public XboxController getXbox() {
     return xbox;
   }
-
+  // public Joystick getJoystick(){
+  //   return joystick1;
+  // }
+  public Command getAutonomousCommand() {
+    // The selected command will be run in autonomous
+    return m_chooser.getSelected();
   }
+
+}
 
   
   

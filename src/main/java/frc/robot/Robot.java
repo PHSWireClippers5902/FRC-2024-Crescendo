@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.subsystems.*;
@@ -42,7 +43,7 @@ public class Robot extends TimedRobot {
   public static boolean retractOnDisabled;
   public static boolean disabled;
   public static RobotContainer m_robotContainer;
-  public static AutonomousCommand m_autonomous;
+  private Command m_autonomousCommand;
   
   
   /**
@@ -106,13 +107,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     //m_robotContainer.m_aimSystem.setPosition(28);
     //m_robotContainer.m_climbSystem.setPosition(0);
     m_autoSelected = m_chooser.getSelected();
     System.out.println("Auto selected: " + m_autoSelected);
     //RobotContainer.lightSystem.getAllianceColor();
     startTime = Timer.getFPGATimestamp();
+    m_autonomousCommand.schedule();
     //RobotContainer.lightSystem.getAllianceColor();
     //m_robotContainer.autoCommand.schedule();
     //m_autonomous.start();

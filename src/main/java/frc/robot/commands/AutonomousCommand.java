@@ -1,57 +1,64 @@
 package frc.robot.commands;
-import frc.robot.subsystems.*;
-import frc.robot.subsystems.TankDrive;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.DigitalInput;
-
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
-
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.MecanumSystem;
 
 public class AutonomousCommand extends Command{
-    // !!IMPORTANT!! THIS CODE DOES NOTHING. I REPEAT, NOTHING.
-    private XboxController xbox;
-    private TankDrive tankdrive;
-    private LimeLightValues limeLight;
-    private boolean isActive;
     private Timer time = new Timer();
-    public AutonomousCommand(TankDrive driveSystem, XboxController xboxCont, LimeLightValues ll){
-        tankdrive = driveSystem;
-        xbox = xboxCont;
-        limeLight = ll;
+    private MecanumSystem drive;
+    public AutonomousCommand(MecanumSystem mecanum){
+        drive = mecanum;
+        addRequirements(drive);
+    }
+    
+    @Override
+    public void initialize() {
         time.reset();
         time.start();
-
-
-        addRequirements(tankdrive);
-
-
-        
     }
-    @Override 
-    public void execute(){
-        // if (xbox.getRightBumper()){
-        //     isActive = true;
+
+    @Override
+    public void execute() {
+        //System.out.println("Hello, World, AutoActive");
+        // if (time.get() < 1){
+        //     //drive.factoryDefaults();
+        //     // drive.configurekF(.3);
+        //     // drive.configurekP(0);
+        //     // drive.configurekI(0.1);
+        //     // drive.configurekD(0);
+        //     // drive.configurekIZ(0);
+        //     // drive.configureFeedSensors();
+        //     // drive.configureSensorPos();
+        //     //drive.configureMinMax(0,0.3);
+        //     //drive.zeromotors();
+            
         // }
-        // if (isActive){
+        // else if (time.get() > 1 && time.get() < 6){
+        //     drive.goFLTo(1);
+        //     drive.goFRTo(1);
+        //     drive.goBLTo(1);
+        //     drive.goBRTo(1);
+        // }
+        // else {
+        //     drive.goFLTo(0);
+        //     drive.goFRTo(0);
+        //     drive.goBLTo(0);
+        //     drive.goBRTo(0);
+        //     // time.reset();
+        //     // time.start();
+            
+        // }
 
-        
-        //     if (limeLight.getTv() != 0){
-        //         while (limeLight.getInchesFromGoal() >= 50){
-        //             tankdrive.drive(0.1,0.1);
-        //         }
-        //         time.reset();
-        //         time.start();
-        //     }
-        //     while (time.get() < 2.5){
-        //         tankdrive.drive(0.2,-0.2);
-        //     }
-        //     tankdrive.drive(0,0);
-        //}
+
+
 
     }
 
+    @Override
+    public void end(boolean interrupted) {
+        time.reset();
+    }
+
+    
 
 }

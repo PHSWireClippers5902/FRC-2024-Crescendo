@@ -12,24 +12,22 @@ import edu.wpi.first.wpilibj.Timer;
 public class LimeLight extends Command{
     //!!IMPORTANT!! THIS ONLY WORKS WITH ROBOTS THAT HAVE A LIMELIGHT, but THIS SUBSYSTEM IS MOSTLY FOR GERALD, until Dan changes it. 
     //ton of initializes variables
-    private double x = 0;
-    private double y = 0;
-    private double nums = 0;
-    private double area = 0;
+    public MecanumSystem m_mecanum;
+    private double x = 0,y=0,nums=0,area=0;
     private XboxController m_xbox;
     private Timer timer;
     private final  LimeLightValues values; 
-    private TankDrive tank;
     private int autocorrect = 0;
-    public LimeLight(LimeLightValues limelightvalues, XboxController xbox, TankDrive m_tank){
+
+    public LimeLight(LimeLightValues limelightvalues, XboxController xbox, MecanumSystem meca){
         //this part is essential, it is mapping of objects to existing objects, and adding subsystem requirements. 
         m_xbox =  xbox;
-        tank = m_tank;
         values = limelightvalues;
         addRequirements(values);
         timer = new Timer();
         timer.reset();
         timer.start();
+        addRequirements(values);
     
     }
     
