@@ -113,7 +113,7 @@ public class Robot extends TimedRobot {
     m_autoSelected = m_chooser.getSelected();
     System.out.println("Auto selected: " + m_autoSelected);
     //RobotContainer.lightSystem.getAllianceColor();
-    startTime = Timer.getFPGATimestamp();
+    //startTime = Timer.getFPGATimestamp();
     m_autonomousCommand.schedule();
     //RobotContainer.lightSystem.getAllianceColor();
     //m_robotContainer.autoCommand.schedule();

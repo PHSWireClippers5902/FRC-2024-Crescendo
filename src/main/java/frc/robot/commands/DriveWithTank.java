@@ -31,9 +31,15 @@ public class DriveWithTank extends Command {
     xboxtonk = xbox;
     m_mecanum = mecanum;
     lightTimer.reset();
-    
+    m_mecanum.teleopConfigs();
     addRequirements(m_mecanum);
     
+  }
+
+  @Override
+  public void initialize() {
+    m_mecanum.teleopConfigs();
+
   }
 
   @Override
@@ -51,7 +57,7 @@ public class DriveWithTank extends Command {
       pivot = 0;
     }
     if (Math.abs(xboxtonk.getLeftX()) > 0.1){
-      horiz = -xboxtonk.getLeftX();
+      horiz = -0.5*xboxtonk.getLeftX();
     }else {
       horiz = 0;
     }
@@ -66,6 +72,15 @@ public class DriveWithTank extends Command {
     {
       vert = 0;
     }
+    // if (xboxtonk.getAButton()){
+    //   m_mecanum.moveActuator(-1);
+    // }else if (xboxtonk.getXButton()){
+    //   m_mecanum.moveActuator(1);
+    // }
+    // else {
+    //   m_mecanum.moveActuator(0);
+    // }
+
     // vert = 0;
     // pivot = 0;
     // vert = js.getY();
@@ -79,7 +94,7 @@ public class DriveWithTank extends Command {
 
       // }
       if (xboxtonk.getLeftBumper()){
-        speed = 0.6;
+        speed = 0.8;
       }else {
         speed = 0.3;
       }
@@ -96,26 +111,28 @@ public class DriveWithTank extends Command {
       m_mecanum.moveFR(speed*(-pivot+vert-horiz));
       m_mecanum.moveBR(speed*(-pivot+vert+horiz));
       m_mecanum.moveFL(speed*(pivot+vert+horiz));
-      SmartDashboard.putNumber("Speed",speed);
-      SmartDashboard.putNumber("pivot",pivot);
-      SmartDashboard.putNumber("Vert: ",vert);
-      SmartDashboard.putNumber("Horiz",horiz);
+      // SmartDashboard.putNumber("Speed",speed);
+      // SmartDashboard.putNumber("pivot",pivot);
+      // SmartDashboard.putNumber("Vert: ",vert);
+      // SmartDashboard.putNumber("Horiz",horiz);
       if (xboxtonk.getXButton()){
-        m_mecanum.percentSpeeds();
-        m_mecanum.changeColor(0.57);
+        //m_mecanum.percentSpeeds();
+        //m_mecanum.changeColor(0.57);
+        m_mecanum.printpositions();
       }
       else {
-        m_mecanum.resetticks();
+        //m_mecanum.resetticks();
       }
       if (xboxtonk.getBButton()){
         m_mecanum.changeColor(-.99);
       }
       if (xboxtonk.getPOV() == 90){
         m_mecanum.changeColor(-.97);
+        m_mecanum.zeromotors();
       }
-      else if (xboxtonk.getPOV() == 180){
-        m_mecanum.changeColor(-.95);
-      }
+      // else if (xboxtonk.getPOV() == 180){
+      //   m_mecanum.changeColor(-.95);
+      // }
     
       
   }

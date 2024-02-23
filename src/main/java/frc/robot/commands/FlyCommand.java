@@ -12,14 +12,17 @@ import frc.robot.subsystems.MecanumSystem;
 public class FlyCommand extends Command{
     //!!IMPORTANT!! THIS IS A CODE SNIPPIT FOR THE 2024 CRESCENDO CHALLENGE!
     Timer lightTimer = new Timer();
+    Timer shootTimer = new Timer();
     XboxController m_xbox;
-
+    double hookpos = 0;
     FlyWheelAndHook wheel;
     MecanumSystem light;
     public FlyCommand(XboxController xbox, FlyWheelAndHook fly,MecanumSystem lightSystem){
         m_xbox = xbox;
         lightTimer.reset();
         lightTimer.start();
+        shootTimer.reset();
+        shootTimer.start();
         wheel = fly;
         
         addRequirements(wheel);
@@ -28,7 +31,7 @@ public class FlyCommand extends Command{
     }
     @Override
     public void execute() {
-
+        
         if (m_xbox.getRightBumper()){
             //wheel.moveFly(m_xbox.getLeftTriggerAxis());
             wheel.moveTopFlyWheel(-0.7);
@@ -43,23 +46,34 @@ public class FlyCommand extends Command{
         }
         else if (m_xbox.getLeftTriggerAxis() > 0.1){
             //light.changeColor(1);
-            if (Math.round(lightTimer.get()*4) % 2 == 0){
-                light.changeColor(0.77);
-            }
-            else 
-            {
-                light.changeColor(0.99);
-            }
-            wheel.moveFly(m_xbox.getLeftTriggerAxis());
+            // if (Math.round(lightTimer.get()*4) % 2 == 0){
+            //     light.changeColor(0.77);
+            // }
+            // else 
+            // {
+            //     light.changeColor(0.99);
+            // }
+            // wheel.moveFly(m_xbox.getLeftTriggerAxis());
+            wheel.moveBottomFlyWheel(0.2);
+            wheel.moveTopFlyWheel(0.3*m_xbox.getLeftTriggerAxis());
 
         } 
         // else if (m_xbox.getLeftBumper()){
         //     wheel.moveBottomFlyWheel(0.25);
         //     wheel.moveTopFlyWheel(1);
         
-        // }     
+        // }    
+        
+        
         else if (m_xbox.getRightTriggerAxis() > 0.1)
         {
+            if (shootTimer.get() < 1.25){
+                wheel.moveTopFlyWheel(1);
+            }
+            else {
+                wheel.moveTopFlyWheel(1);
+                wheel.moveBottomFlyWheel(1);
+            }
             if (Math.round(lightTimer.get()*4) % 2 == 0){
                 light.changeColor(0.77);
             }
@@ -67,9 +81,11 @@ public class FlyCommand extends Command{
             {
                 light.changeColor(0.99);
             }
-            wheel.moveTopFlyWheel(1);
-            wheel.moveBottomFlyWheel(0);
+            // wheel.moveTopFlyWheel(1);
+            // wheel.moveBottomFlyWheel(0);
         }
+
+
         // else {
         //     wheel.moveFly(0);
         // }
@@ -85,18 +101,31 @@ public class FlyCommand extends Command{
         //     wheel.moveBottomFlyWheel(0);
         // }
         else {
+            shootTimer.reset();
+            shootTimer.start();
             wheel.moveFly(0);
         }
 
-        // if (m_xbox.getYButton()){
-        //     wheel.moveHook(0.2);
-        // }
-        // else if (m_xbox.getAButton()){
-        //     wheel.moveHook(-0.2);
-        // }
-        // else {
-        //     wheel.moveHook(0);
-        // }
+        if (m_xbox.getYButton()){
+            wheel.moveHook(-0.3);
+        }
+        else if (m_xbox.getAButton()){
+            wheel.moveHook(0.3);
+        }
+        else {
+            wheel.moveHook(0);
+        }
+        if (m_xbox.getLeftTriggerAxis() > 0.1){
+            wheel.encoderLock(0);
+        }
+        else if (m_xbox.getPOV() == 180){
+            wheel.encoderLock(hookpos);
+        }
+        else {
+            hookpos = wheel.getHookPos();
+
+        }
+
         // if (m_xbox.getXButton()){
         //     wheel.moveFly(0);
         // }

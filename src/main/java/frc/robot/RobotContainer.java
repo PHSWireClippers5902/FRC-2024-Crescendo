@@ -47,7 +47,7 @@ public class RobotContainer {
   //Default Constructor
   public RobotContainer(){
 
-    m_chooser.setDefaultOption("Autonomous Command", new AutonomousCommand(m_mecanum));    
+    m_chooser.setDefaultOption("Autonomous Command", new AutonomousCommand(m_mecanum,m_fly));    
     m_mecanum.setDefaultCommand(m_TankCommand);
     m_fly.setDefaultCommand(m_flycommand);
     m_value.setDefaultCommand(m_limelight);
