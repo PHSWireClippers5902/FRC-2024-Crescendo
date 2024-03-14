@@ -153,7 +153,8 @@ public class FlyCommand extends Command{
             wheel.moveHook(0);
         }
         SmartDashboard.putNumber("HookPos: ",wheel.getHookPos());
-        System.out.println(wheel.getLimitSwitch());
+        SmartDashboard.putBoolean("HookLimit: ", wheel.getLimitSwitch());
+        //System.out.println(wheel.getLimitSwitch());
         if (m_xbox.getPOV() == 270){
             if (wheel.getLimitSwitch()){
                 wheel.moveHook(0.01);
