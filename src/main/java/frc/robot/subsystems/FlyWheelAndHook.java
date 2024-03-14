@@ -13,9 +13,15 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+
+
 public class FlyWheelAndHook extends SubsystemBase{
     // Servo actuator = new Servo(1);
     //CODE STUB FOR THE 2024 Crescendo Season. 
+    DigitalInput lSwitch;
+
+
     WPI_TalonSRX topfly = new WPI_TalonSRX(6);
     //WPI_TalonSRX topfly = new WPI_TalonSRX(5);
     CANSparkMax bottomfly = new CANSparkMax(10,MotorType.kBrushless);
@@ -28,6 +34,7 @@ public class FlyWheelAndHook extends SubsystemBase{
         controller = hook.getPIDController();
         contenc = hook.getEncoder();
         configureConstants();
+        lSwitch = new DigitalInput(0);
     }
 
     public void configureConstants(){
@@ -58,6 +65,14 @@ public class FlyWheelAndHook extends SubsystemBase{
     // public void neutralActuator(){
     //     actuator.set(0);
     // }
+    public void zeroHook(){
+        contenc.setPosition(0);
+    }
+    public boolean getLimitSwitch(){
+        return lSwitch.get();
+        //return false;
+    }
+
     public void FlyWheel(){
         //hookpid = hook.getPIDController();
     }
@@ -79,6 +94,8 @@ public class FlyWheelAndHook extends SubsystemBase{
         //SmartDashboard.putNumber("TFLY: ",speed);
         topfly.set(speed);
     }
+
+
 
 
 

@@ -5,6 +5,7 @@ import javax.lang.model.util.ElementScanner14;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.FlyWheelAndHook;
 import frc.robot.subsystems.MecanumSystem;
@@ -13,16 +14,20 @@ public class FlyCommand extends Command{
     //!!IMPORTANT!! THIS IS A CODE SNIPPIT FOR THE 2024 CRESCENDO CHALLENGE!
     Timer lightTimer = new Timer();
     Timer shootTimer = new Timer();
+    Timer ampTimer = new Timer();
     XboxController m_xbox;
     double hookpos = 0;
     FlyWheelAndHook wheel;
     MecanumSystem light;
+    double GLOBALPOSITION = 0;
     public FlyCommand(XboxController xbox, FlyWheelAndHook fly,MecanumSystem lightSystem){
         m_xbox = xbox;
         lightTimer.reset();
         lightTimer.start();
         shootTimer.reset();
         shootTimer.start();
+        ampTimer.reset();
+        ampTimer.start();
         wheel = fly;
         
         addRequirements(wheel);
@@ -31,7 +36,7 @@ public class FlyCommand extends Command{
     }
     @Override
     public void execute() {
-        
+       
         if (m_xbox.getRightBumper()){
             //wheel.moveFly(m_xbox.getLeftTriggerAxis());
             wheel.moveTopFlyWheel(-0.7);
@@ -54,9 +59,10 @@ public class FlyCommand extends Command{
             //     light.changeColor(0.99);
             // }
             // wheel.moveFly(m_xbox.getLeftTriggerAxis());
-            wheel.moveBottomFlyWheel(0.2);
-            wheel.moveTopFlyWheel(0.3*m_xbox.getLeftTriggerAxis());
-
+            SmartDashboard.putNumber("LeftTriggerExportSpeed: ",0.3*m_xbox.getLeftTriggerAxis());
+            // wheel.moveBottomFlyWheel(0.2);
+            // //wheel.moveTopFlyWheel(0.3*m_xbox.getLeftTriggerAxis());
+            // wheel.moveTopFlyWheel(.16);
         } 
         // else if (m_xbox.getLeftBumper()){
         //     wheel.moveBottomFlyWheel(0.25);
@@ -103,7 +109,30 @@ public class FlyCommand extends Command{
         else {
             shootTimer.reset();
             shootTimer.start();
+             if (m_xbox.getXButton()){
+            //move the flywheel at AMP speed for x seconds
+            if (ampTimer.get() > 1 && ampTimer.get() < 1.5){
+                wheel.moveBottomFlyWheel(0.2);
+                wheel.moveTopFlyWheel(.16);
+            }
+            //wheel.moveBottomFlyWheel(0.2);
+            //wheel.moveTopFlyWheel(0.3*m_xbox.getLeftTriggerAxis());
+            //wheel.moveTopFlyWheel(.16);
+            
+
+        }
+        else {
+            ampTimer.reset();
+            ampTimer.start();
+            
             wheel.moveFly(0);
+        }
+        if (wheel.getLimitSwitch()){
+            wheel.zeroHook();
+            GLOBALPOSITION = wheel.getHookPos();
+        }
+
+
         }
 
         if (m_xbox.getYButton()){
@@ -112,20 +141,28 @@ public class FlyCommand extends Command{
         else if (m_xbox.getAButton()){
             wheel.moveHook(0.3);
         }
-        else {
-            wheel.moveHook(0);
-        }
-        if (m_xbox.getLeftTriggerAxis() > 0.1){
+        
+        else if (m_xbox.getLeftTriggerAxis() > 0.1){
             wheel.encoderLock(0);
         }
         else if (m_xbox.getPOV() == 180){
-            wheel.encoderLock(hookpos);
+            wheel.encoderLock(270);
+            
         }
         else {
-            hookpos = wheel.getHookPos();
+            wheel.moveHook(0);
+        }
+        SmartDashboard.putNumber("HookPos: ",wheel.getHookPos());
+        System.out.println(wheel.getLimitSwitch());
+        if (m_xbox.getPOV() == 270){
+            if (wheel.getLimitSwitch()){
+                wheel.moveHook(0.01);
+            }
+            else {
+                wheel.moveHook(-0.2);
+            }
 
         }
-
         // if (m_xbox.getXButton()){
         //     wheel.moveFly(0);
         // }
@@ -143,6 +180,8 @@ public class FlyCommand extends Command{
         // else {
         //     //wheel.neutralActuator();
         // }
+
+        
     }
 
     

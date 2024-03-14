@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class LimeLight extends Command{
     //!!IMPORTANT!! THIS ONLY WORKS WITH ROBOTS THAT HAVE A LIMELIGHT, but THIS SUBSYSTEM IS MOSTLY FOR GERALD, until Dan changes it. 
     //ton of initializes variables
-    public MecanumSystem m_mecanum;
+    public MecanumSystem tank;
     private double x = 0,y=0,nums=0,area=0;
     private XboxController m_xbox;
     private Timer timer;
@@ -22,12 +22,13 @@ public class LimeLight extends Command{
     public LimeLight(LimeLightValues limelightvalues, XboxController xbox, MecanumSystem meca){
         //this part is essential, it is mapping of objects to existing objects, and adding subsystem requirements. 
         m_xbox =  xbox;
+        tank = meca;
         values = limelightvalues;
         addRequirements(values);
         timer = new Timer();
         timer.reset();
         timer.start();
-        addRequirements(values);
+        //addRequirements(values);
     
     }
     
@@ -60,7 +61,7 @@ public class LimeLight extends Command{
             //autocorrect = 0;
         }
         if (m_xbox.getBButton()){
-            //autocorrect = 0;
+            autocorrect = 2;
         }
         if (autocorrect == 1)
         {
@@ -99,7 +100,7 @@ public class LimeLight extends Command{
 
 
 
-        if (autocorrect == 2){
+        if (m_xbox.getBButton()){
 
 
             //sets the error adjustment values to the PID control. 
@@ -133,7 +134,7 @@ public class LimeLight extends Command{
             SmartDashboard.putNumber("heading_error",heading_error);
             double xdist = values.getInchesFromGoal();
             double err = 4;
-            double targ = 40;
+            double targ = 42;
             double sp = 0;
             //double dif = Math.abs(xdist - targ);
             //double inc = 0.005;
@@ -154,9 +155,17 @@ public class LimeLight extends Command{
             //drives the steering to the sum of both of the adjusted movements. 
             SmartDashboard.putNumber("Steering_adjust: ", steering_adjust);
             //PART THAT MAKES STUFF MOVE
-            //tank.drive(-0.1*steering_adjust+sp, 0.1*steering_adjust+sp);
+            tank.moveFL(-0.1*steering_adjust+sp);
+            tank.moveFR(0.1*steering_adjust+sp);
+            tank.moveBL(-0.1*steering_adjust+sp);
+            tank.moveBR(0.1*steering_adjust+sp);
+            //tank.drive, 0.1*steering_adjust+sp);
             if (values.getTv() == 0){
-                //tank.drive(0,0);
+                // tank.drive(0,0);
+                tank.moveFL(0);
+                tank.moveFR(0);
+                tank.moveBL(0);
+                tank.moveBR(0);
             }
             
 

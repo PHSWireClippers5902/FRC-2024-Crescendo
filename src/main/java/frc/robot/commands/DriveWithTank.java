@@ -19,10 +19,12 @@ public class DriveWithTank extends Command {
   //!!IMPORTANT!! Before using, make sure that the TankDrive subsystem has proper configuration. Limit switches will only work on the vacum bot. 
   //initializes a lot of important objects and variables
   private final MecanumSystem m_mecanum;
+  
   private Joystick js;
   private double left,right,pivot,leftx,vert,horiz;
   public double speed = 0.3;
   Timer lightTimer = new Timer();
+  Timer ampTimer = new Timer();
   //private DigitalInput frontLeft, frontRight, backLeft, backRight;
   private XboxController xboxtonk;
 
@@ -31,6 +33,8 @@ public class DriveWithTank extends Command {
     xboxtonk = xbox;
     m_mecanum = mecanum;
     lightTimer.reset();
+    ampTimer.reset();
+    ampTimer.start();
     m_mecanum.teleopConfigs();
     addRequirements(m_mecanum);
     
@@ -49,7 +53,7 @@ public class DriveWithTank extends Command {
     // left = xboxtonk.getLeftY();
     // right = xboxtonk.getRightY();
     // leftx = xboxtonk.getLeftX();
-
+    
     if (Math.abs(xboxtonk.getRightX()) > 0.1){
       pivot = -xboxtonk.getRightX();
     }
@@ -107,10 +111,6 @@ public class DriveWithTank extends Command {
       // }
       //code snippet only for mecanum based drivetrains. 
       
-      m_mecanum.moveBL(speed*(pivot+vert-horiz));
-      m_mecanum.moveFR(speed*(-pivot+vert-horiz));
-      m_mecanum.moveBR(speed*(-pivot+vert+horiz));
-      m_mecanum.moveFL(speed*(pivot+vert+horiz));
       // SmartDashboard.putNumber("Speed",speed);
       // SmartDashboard.putNumber("pivot",pivot);
       // SmartDashboard.putNumber("Vert: ",vert);
@@ -118,14 +118,62 @@ public class DriveWithTank extends Command {
       if (xboxtonk.getXButton()){
         //m_mecanum.percentSpeeds();
         //m_mecanum.changeColor(0.57);
+
+
+        //TODO: put amp code here;
+        if (ampTimer.get() < 0.1){
+          m_mecanum.zeromotors();
+        }
+        else if (ampTimer.get() < 2 && ampTimer.get() > 0.1){
+            m_mecanum.moveAllFourTo(-.1,-.1,-.1,-.1);
+        }
+        else if (ampTimer.get() > 2 && ampTimer.get() < 2.5){
+          //continue;
+          m_mecanum.moveBL(0);
+          m_mecanum.moveBR(0);
+          m_mecanum.moveFL(0);
+          m_mecanum.moveFR(0);
+        }
+        else if (ampTimer.get() > 2.5 && ampTimer.get() < 4){
+          m_mecanum.moveFL(-0.1);
+          m_mecanum.moveFR(-0.1);
+          m_mecanum.moveBL(-0.1);
+          m_mecanum.moveBR(-0.1);
+        }
+        else {
+          
+          m_mecanum.moveBL(0);
+          m_mecanum.moveBR(0);
+          m_mecanum.moveFL(0);
+          m_mecanum.moveFR(0);
+        }
+
+
+        //move backwards X inches (time based)
+        //movem 
+
         m_mecanum.printpositions();
       }
       else {
+        
+        ampTimer.reset();
+        ampTimer.start();
+        
+      m_mecanum.moveBL(speed*(pivot+vert-horiz));
+      m_mecanum.moveFR(speed*(-pivot+vert-horiz));
+      m_mecanum.moveBR(speed*(-pivot+vert+horiz));
+      m_mecanum.moveFL(speed*(pivot+vert+horiz));
+        // m_mecanum.moveFL(speed*horiz);
+        // m_mecanum.moveBL(-speed*horiz);
+        // m_mecanum.moveFR(-speed*horiz);
+        // m_mecanum.moveBR(speed*horiz);
+        
+
         //m_mecanum.resetticks();
       }
-      if (xboxtonk.getBButton()){
-        m_mecanum.changeColor(-.99);
-      }
+      // if (xboxtonk.getBButton()){
+      //   m_mecanum.changeColor(-.99);
+      // }
       if (xboxtonk.getPOV() == 90){
         m_mecanum.changeColor(-.97);
         m_mecanum.zeromotors();

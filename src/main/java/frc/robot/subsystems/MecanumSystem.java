@@ -19,7 +19,7 @@ public class MecanumSystem extends SubsystemBase{
     public double SMALLForward = 100;
     public double ticks=0,aveFL=0,aveFR=0,aveBL=0,aveBR=0,totalFL=0,totalFR= 0 ,totalBR = 0,totalBL = 0;
     public double asFL=1.1072,asFR=1,asBL=1,asBR = 1;
-    Spark color = new Spark(0);
+    Spark color = new Spark(1);
     //Spark linear = new Spark(1);
     // public void moveActuator(double speed){
     //     linear.set(speed);
