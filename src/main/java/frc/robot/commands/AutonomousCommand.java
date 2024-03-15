@@ -41,7 +41,7 @@ public class AutonomousCommand extends Command{
         //30000 per 360
         //30000/4 = 7500
         //drive.customMoveFLTo(10000);
-        if (time.get() < 5){
+        if (time.get() < 4){
              double Kp = -0.1f;
             double min_command = 0.05f;
 
@@ -110,7 +110,7 @@ public class AutonomousCommand extends Command{
             shootTimer.start();
         }
 
-        else if (time.get() > 5 && time.get() < 8){
+        else if (time.get() > 4 && time.get() < 6){
             drive.moveFL(0);
             drive.moveFR(0);
             drive.moveBL(0);
@@ -124,9 +124,15 @@ public class AutonomousCommand extends Command{
             }
             
         }
-        else if (time.get() > 8 && time.get() < 8.1){
+        else if (time.get() > 6 && time.get() < 6.1){
             drive.zeromotors();
             flyhook.moveFly(0);
+        }
+        else if (time.get() > 6.1 && time.get() < 9){
+            drive.moveAllFourTo(-1.5,-1.5,-1.5,-1.5);
+        }
+        else if (time.get() > 9 && time.get() < 9.1){
+            drive.zeromotors();
         }
         else {
             drive.moveAllFourTo(0,0,0,0);
