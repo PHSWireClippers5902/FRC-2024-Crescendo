@@ -61,7 +61,7 @@ public class DriveWithTank extends Command {
       pivot = 0;
     }
     if (Math.abs(xboxtonk.getLeftX()) > 0.1){
-      horiz = -0.5*xboxtonk.getLeftX();
+      horiz = -xboxtonk.getLeftX();
     }else {
       horiz = 0;
     }
@@ -98,7 +98,7 @@ public class DriveWithTank extends Command {
 
       // }
       if (xboxtonk.getLeftBumper()){
-        speed = 0.8;
+        speed = 0.9;
       }else {
         speed = 0.3;
       }

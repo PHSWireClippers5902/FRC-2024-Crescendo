@@ -43,7 +43,7 @@ public class FlyWheelAndHook extends SubsystemBase{
         controller.setI(0.00001);
         controller.setIZone(0);
         controller.setFF(0);
-        controller.setOutputRange(-.2,.2);
+        controller.setOutputRange(-.6,.6);
     }
     public void encoderLock(double pos){
         //-130 -> 0 are the positions, 0 is lowest, -130 is highest

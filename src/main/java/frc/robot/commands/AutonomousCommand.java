@@ -42,69 +42,80 @@ public class AutonomousCommand extends Command{
         //30000/4 = 7500
         //drive.customMoveFLTo(10000);
         if (time.get() < 4){
-             double Kp = -0.1f;
-            double min_command = 0.05f;
 
-            double heading_error = -values.getTx();
-            double steering_adjust = 0.0;
+
+
+
+
+            //WARNING: IF OTHER THAN CENTER COMMENT OUT
+
+            //  double Kp = -0.1f;
+            // double min_command = 0.05f;
+
+            // double heading_error = -values.getTx();
+            // double steering_adjust = 0.0;
             
-            double sadj = 0.11;
+            // double sadj = 0.11;
 
 
-            //HEADING ERROR CALCULATIONS
+            // //HEADING ERROR CALCULATIONS
 
 
-            if (Math.abs(heading_error) > 0.7) 
-            {
-                if (heading_error < 0) 
-                {
-                    steering_adjust = Kp*heading_error + min_command;
-                } 
-                else 
-                {
-                    steering_adjust = Kp*heading_error - min_command;
-                }
-            } 
-            //left_command += steering_adjust;
-            //right_command -= steering_adjust;
+            // if (Math.abs(heading_error) > 0.7) 
+            // {
+            //     if (heading_error < 0) 
+            //     {
+            //         steering_adjust = Kp*heading_error + min_command;
+            //     } 
+            //     else 
+            //     {
+            //         steering_adjust = Kp*heading_error - min_command;
+            //     }
+            // } 
+            // //left_command += steering_adjust;
+            // //right_command -= steering_adjust;
         
-            //displays stuff, and this doubles down and gets the distance from the goal. 
-            SmartDashboard.putNumber("heading_error",heading_error);
-            double xdist = values.getInchesFromGoal();
-            double err = 4;
-            double targ = 42;
-            double sp = 0;
-            //double dif = Math.abs(xdist - targ);
-            //double inc = 0.005;
-            if (Math.abs(targ - xdist) >= err)
-            {
-                if (targ-xdist > 0){
-                    sp = sadj;
-                }
-                else
-                {
-                    sp = -sadj;
-                }
-            }
-            else
-            {
-                sp = 0;
-            }
-            //drives the steering to the sum of both of the adjusted movements. 
-            SmartDashboard.putNumber("Steering_adjust: ", steering_adjust);
-            //PART THAT MAKES STUFF MOVE
-            drive.moveFL(-0.1*steering_adjust+sp);
-            drive.moveFR(0.1*steering_adjust+sp);
-            drive.moveBL(-0.1*steering_adjust+sp);
-            drive.moveBR(0.1*steering_adjust+sp);
-            //tank.drive, 0.1*steering_adjust+sp);
-            if (values.getTv() == 0){
-                // tank.drive(0,0);
-                drive.moveFL(0);
-                drive.moveFR(0);
-                drive.moveBL(0);
-                drive.moveBR(0);
-            }
+            // //displays stuff, and this doubles down and gets the distance from the goal. 
+            // SmartDashboard.putNumber("heading_error",heading_error);
+            // double xdist = values.getInchesFromGoal();
+            // double err = 4;
+            // double targ = 42;
+            // double sp = 0;
+            // //double dif = Math.abs(xdist - targ);
+            // //double inc = 0.005;
+            // if (Math.abs(targ - xdist) >= err)
+            // {
+            //     if (targ-xdist > 0){
+            //         sp = sadj;
+            //     }
+            //     else
+            //     {
+            //         sp = -sadj;
+            //     }
+            // }
+            // else
+            // {
+            //     sp = 0;
+            // }
+            // //drives the steering to the sum of both of the adjusted movements. 
+            // SmartDashboard.putNumber("Steering_adjust: ", steering_adjust);
+            // //PART THAT MAKES STUFF MOVE
+            // drive.moveFL(-0.1*steering_adjust+sp);
+            // drive.moveFR(0.1*steering_adjust+sp);
+            // drive.moveBL(-0.1*steering_adjust+sp);
+            // drive.moveBR(0.1*steering_adjust+sp);
+            // //tank.drive, 0.1*steering_adjust+sp);
+            // if (values.getTv() == 0){
+            //     // tank.drive(0,0);
+            //     drive.moveFL(0);
+            //     drive.moveFR(0);
+            //     drive.moveBL(0);
+            //     drive.moveBR(0);
+            // }
+
+
+
+
             shootTimer.reset();
             //shootTimer.start();
             shootTimer.start();
@@ -129,11 +140,17 @@ public class AutonomousCommand extends Command{
             flyhook.moveFly(0);
         }
         else if (time.get() > 6.1 && time.get() < 9){
-            drive.moveAllFourTo(-1.5,-1.5,-1.5,-1.5);
+            //drive.moveAllFourTo(-2,-2,-2,-2);
         }
         else if (time.get() > 9 && time.get() < 9.1){
             drive.zeromotors();
         }
+        // else if (time.get() > 9.1 && time.get() < 12){
+        //     //drive.moveAllFourToDegrees(180, 180, 180, 180);
+        // }
+        // else if (time.get() > 12 && time.get() < 12.1){
+        //     drive.zeromotors();
+        // }
         else {
             drive.moveAllFourTo(0,0,0,0);
         }

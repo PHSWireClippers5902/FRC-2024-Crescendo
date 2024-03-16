@@ -59,6 +59,21 @@ public class FlyCommand extends Command{
             //     light.changeColor(0.99);
             // }
             // wheel.moveFly(m_xbox.getLeftTriggerAxis());
+            if (shootTimer.get() < 1.25){
+                wheel.moveTopFlyWheel(1);
+            }
+            else {
+                wheel.moveTopFlyWheel(1);
+                wheel.moveBottomFlyWheel(1);
+            }
+            if (Math.round(lightTimer.get()*4) % 2 == 0){
+                light.changeColor(0.77);
+            }
+            else 
+            {
+                light.changeColor(0.99);
+            }
+
             SmartDashboard.putNumber("LeftTriggerExportSpeed: ",0.3*m_xbox.getLeftTriggerAxis());
             // wheel.moveBottomFlyWheel(0.2);
             // //wheel.moveTopFlyWheel(0.3*m_xbox.getLeftTriggerAxis());
@@ -146,7 +161,17 @@ public class FlyCommand extends Command{
             wheel.encoderLock(0);
         }
         else if (m_xbox.getPOV() == 180){
+            if (wheel.getHookPos() > 270){
+                wheel.moveHook(0);
+            }
+            else if (wheel.getHookPos() > 170){
+                wheel.moveHook(0.2);
+            }
+            else {
+
+            
             wheel.encoderLock(270);
+            }
             
         }
         else {
