@@ -151,27 +151,42 @@ public class FlyCommand extends Command{
         }
 
         if (m_xbox.getYButton()){
-            wheel.moveHook(-0.3);
+            wheel.moveHook(-0.8);
         }
         else if (m_xbox.getAButton()){
-            wheel.moveHook(0.3);
+            wheel.moveHook(0.8);
         }
         
         else if (m_xbox.getLeftTriggerAxis() > 0.1){
             wheel.encoderLock(0);
         }
         else if (m_xbox.getPOV() == 180){
-            if (wheel.getHookPos() > 270){
-                wheel.moveHook(0);
-            }
-            else if (wheel.getHookPos() > 170){
-                wheel.moveHook(0.2);
-            }
-            else {
+            // if (wheel.getHookPos() > 270){
+            //     wheel.moveHook(0);
+            // }
+            // else if (wheel.getHookPos() > 170){
+            //     wheel.moveHook(0.2);
+            // }
+            // else {
 
             
-            wheel.encoderLock(270);
+            // wheel.encoderLock(270);
+            // }
+            if (wheel.getHookPos() < -270 || wheel.getLimitSwitch()){
+                wheel.moveHook(0);
             }
+            else if (wheel.getHookPos() < -130){
+                wheel.moveHook(0.9);
+            }
+            else {
+                wheel.moveHook(0.7);
+            }
+            // if (wheel.getLimitSwitch()){
+            //     wheel.moveHook(0);
+            // }
+            // else {
+            //     wheel.moveHook(0.5);
+            // }
             
         }
         else {
@@ -181,7 +196,7 @@ public class FlyCommand extends Command{
         SmartDashboard.putBoolean("HookLimit: ", wheel.getLimitSwitch());
         //System.out.println(wheel.getLimitSwitch());
         if (m_xbox.getPOV() == 270){
-            if (wheel.getLimitSwitch()){
+            if (wheel.getTopLimitSwitch()){
                 wheel.moveHook(0.01);
             }
             else {

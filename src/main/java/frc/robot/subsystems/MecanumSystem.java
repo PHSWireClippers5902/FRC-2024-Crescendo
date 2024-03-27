@@ -25,7 +25,7 @@ public class MecanumSystem extends SubsystemBase{
     //     linear.set(speed);
     // }
     
-    double MAX_VELOCITY = 4000;
+    double MAX_VELOCITY = 4800;
     public double MecanumColor = 0.99;
     //initializes motor controllers with hookbot constants. 
     WPI_TalonSRX frontLeft = new WPI_TalonSRX(4);
@@ -60,10 +60,10 @@ public class MecanumSystem extends SubsystemBase{
         color.set(MecanumColor);
     }
     public void printpositions(){
-        SmartDashboard.putNumber("FL Position: ", frontLeft.getSelectedSensorPosition(0));
-        SmartDashboard.putNumber("FR Position: ", frontRight.getSelectedSensorPosition(0));
-        SmartDashboard.putNumber("BL Position: ", backLeft.getSelectedSensorPosition(0));
-        SmartDashboard.putNumber("BR Position: ", backRight.getSelectedSensorPosition(0));
+        // SmartDashboard.putNumber("FL Position: ", frontLeft.getSelectedSensorPosition(0));
+        // SmartDashboard.putNumber("FR Position: ", frontRight.getSelectedSensorPosition(0));
+        // SmartDashboard.putNumber("BL Position: ", backLeft.getSelectedSensorPosition(0));
+        // SmartDashboard.putNumber("BR Position: ", backRight.getSelectedSensorPosition(0));
     
     }
     public void moveAllFourTo(double FLPOS,double FRPOS,double BLPOS,double BRPOS){
@@ -420,20 +420,20 @@ public class MecanumSystem extends SubsystemBase{
     }
 
     public void goFLTo(double feet){
-        SmartDashboard.putNumber("FrontLeft Position: ",frontLeft.getSelectedSensorPosition());
+       // SmartDashboard.putNumber("FrontLeft Position: ",frontLeft.getSelectedSensorPosition());
         //frontLeft.set(ControlMode.Position,feetToTicks(feet));
         frontLeft.set(ControlMode.Position,10000);
     }
     public void goFRTo(double feet){
-        SmartDashboard.putNumber("FrontRigjt Position: ",frontRight.getSelectedSensorPosition());
+        //SmartDashboard.putNumber("FrontRigjt Position: ",frontRight.getSelectedSensorPosition());
         frontRight.set(ControlMode.Position,feetToTicks(feet));
     }
     public void goBLTo(double feet){
-        SmartDashboard.putNumber("BackLeft Position: ",backLeft.getSelectedSensorPosition());
+       // SmartDashboard.putNumber("BackLeft Position: ",backLeft.getSelectedSensorPosition());
         backLeft.set(ControlMode.Position,feetToTicks(feet));
     }
     public void goBRTo(double feet){
-        SmartDashboard.putNumber("BackRight Position: ",backRight.getSelectedSensorPosition());
+      //  SmartDashboard.putNumber("BackRight Position: ",backRight.getSelectedSensorPosition());
         backRight.set(ControlMode.Position,feetToTicks(feet));
     }
     

@@ -41,11 +41,11 @@ public class LimeLight extends Command{
         area = values.getTa();
         nums = values.getTv();
         //post to smart dashboard periodically
-        SmartDashboard.putNumber("LimelightX", x);
-        SmartDashboard.putNumber("LimelightY", y);
-        SmartDashboard.putNumber("LimelightArea", area);
-        SmartDashboard.putNumber("DistanceFromGoal", values.getInchesFromGoal());
-        SmartDashboard.putNumber("Limelight Values: ",nums);
+        // SmartDashboard.putNumber("LimelightX", x);
+        // SmartDashboard.putNumber("LimelightY", y);
+        // SmartDashboard.putNumber("LimelightArea", area);
+        // SmartDashboard.putNumber("DistanceFromGoal", values.getInchesFromGoal());
+        // SmartDashboard.putNumber("Limelight Values: ",nums);
         //base position control. 
         float Kp = -0.1f;
         float min_command = 0.05f;
@@ -94,7 +94,7 @@ public class LimeLight extends Command{
             }
 
             //displays the error
-            SmartDashboard.putNumber("heading_error",heading_error);
+          //  SmartDashboard.putNumber("heading_error",heading_error);
         }
 
 
@@ -131,7 +131,7 @@ public class LimeLight extends Command{
             //right_command -= steering_adjust;
         
             //displays stuff, and this doubles down and gets the distance from the goal. 
-            SmartDashboard.putNumber("heading_error",heading_error);
+           // SmartDashboard.putNumber("heading_error",heading_error);
             double xdist = values.getInchesFromGoal();
             double err = 4;
             double targ = 42;
@@ -153,7 +153,7 @@ public class LimeLight extends Command{
                 sp = 0;
             }
             //drives the steering to the sum of both of the adjusted movements. 
-            SmartDashboard.putNumber("Steering_adjust: ", steering_adjust);
+           // SmartDashboard.putNumber("Steering_adjust: ", steering_adjust);
             //PART THAT MAKES STUFF MOVE
             tank.moveFL(-0.1*steering_adjust+sp);
             tank.moveFR(0.1*steering_adjust+sp);

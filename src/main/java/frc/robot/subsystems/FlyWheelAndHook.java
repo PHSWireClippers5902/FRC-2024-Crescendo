@@ -20,7 +20,7 @@ public class FlyWheelAndHook extends SubsystemBase{
     // Servo actuator = new Servo(1);
     //CODE STUB FOR THE 2024 Crescendo Season. 
     DigitalInput lSwitch;
-
+    DigitalInput tSwitch;
 
     WPI_TalonSRX topfly = new WPI_TalonSRX(6);
     //WPI_TalonSRX topfly = new WPI_TalonSRX(5);
@@ -34,7 +34,9 @@ public class FlyWheelAndHook extends SubsystemBase{
         controller = hook.getPIDController();
         contenc = hook.getEncoder();
         configureConstants();
-        lSwitch = new DigitalInput(0);
+        lSwitch = new DigitalInput(1);
+        tSwitch = new DigitalInput(0);
+
     }
 
     public void configureConstants(){
@@ -43,7 +45,7 @@ public class FlyWheelAndHook extends SubsystemBase{
         controller.setI(0.00001);
         controller.setIZone(0);
         controller.setFF(0);
-        controller.setOutputRange(-.6,.6);
+        controller.setOutputRange(-1,1);
     }
     public void encoderLock(double pos){
         //-130 -> 0 are the positions, 0 is lowest, -130 is highest
@@ -69,8 +71,13 @@ public class FlyWheelAndHook extends SubsystemBase{
         contenc.setPosition(0);
     }
     public boolean getLimitSwitch(){
+        SmartDashboard.putBoolean("Bottom Switch: ", lSwitch.get());
         return lSwitch.get();
         //return false;
+    }
+    public boolean getTopLimitSwitch(){
+        SmartDashboard.putBoolean("Top Switch: ", tSwitch.get());
+        return tSwitch.get();
     }
 
     public void FlyWheel(){

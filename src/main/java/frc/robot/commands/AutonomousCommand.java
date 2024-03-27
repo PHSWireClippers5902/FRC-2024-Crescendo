@@ -38,90 +38,122 @@ public class AutonomousCommand extends Command{
 
     @Override
     public void execute() {
-        //30000 per 360
-        //30000/4 = 7500
-        //drive.customMoveFLTo(10000);
-        if (time.get() < 4){
-
-
-
-
-
-            //WARNING: IF OTHER THAN CENTER COMMENT OUT
-
-            //  double Kp = -0.1f;
-            // double min_command = 0.05f;
-
-            // double heading_error = -values.getTx();
-            // double steering_adjust = 0.0;
-            
-            // double sadj = 0.11;
-
-
-            // //HEADING ERROR CALCULATIONS
-
-
-            // if (Math.abs(heading_error) > 0.7) 
-            // {
-            //     if (heading_error < 0) 
-            //     {
-            //         steering_adjust = Kp*heading_error + min_command;
-            //     } 
-            //     else 
-            //     {
-            //         steering_adjust = Kp*heading_error - min_command;
-            //     }
-            // } 
-            // //left_command += steering_adjust;
-            // //right_command -= steering_adjust;
+        //will be used and swapped depending if the opposing team doesn't want taxi
+        int delay_before_taxi = 0;
+        //will b split depending on what code u want
         
-            // //displays stuff, and this doubles down and gets the distance from the goal. 
-            // SmartDashboard.putNumber("heading_error",heading_error);
-            // double xdist = values.getInchesFromGoal();
-            // double err = 4;
-            // double targ = 42;
-            // double sp = 0;
-            // //double dif = Math.abs(xdist - targ);
-            // //double inc = 0.005;
-            // if (Math.abs(targ - xdist) >= err)
-            // {
-            //     if (targ-xdist > 0){
-            //         sp = sadj;
-            //     }
-            //     else
-            //     {
-            //         sp = -sadj;
-            //     }
-            // }
-            // else
-            // {
-            //     sp = 0;
-            // }
-            // //drives the steering to the sum of both of the adjusted movements. 
-            // SmartDashboard.putNumber("Steering_adjust: ", steering_adjust);
-            // //PART THAT MAKES STUFF MOVE
-            // drive.moveFL(-0.1*steering_adjust+sp);
-            // drive.moveFR(0.1*steering_adjust+sp);
-            // drive.moveBL(-0.1*steering_adjust+sp);
-            // drive.moveBR(0.1*steering_adjust+sp);
-            // //tank.drive, 0.1*steering_adjust+sp);
-            // if (values.getTv() == 0){
-            //     // tank.drive(0,0);
-            //     drive.moveFL(0);
-            //     drive.moveFR(0);
-            //     drive.moveBL(0);
-            //     drive.moveBR(0);
-            // }
+        //case one: right of speaker
+
+        // if (time.get() < 1){
+        //     shootTimer.reset();
+        //     //shootTimer.start();
+        //     shootTimer.start();
+        // }
+        // else if (time.get() < 4){
+        //     drive.moveFL(0);
+        //     drive.moveFR(0);
+        //     drive.moveBL(0);
+        //     drive.moveBR(0);
+        //     if (shootTimer.get() < 1.25){
+        //         flyhook.moveTopFlyWheel(1);
+        //     }
+        //     else {
+        //         flyhook.moveTopFlyWheel(1);
+        //         flyhook.moveBottomFlyWheel(1);
+        //     }
+        //     drive.zeromotors();   
+        // }
+        // else if (time.get() < 7 + delay_before_taxi){
+        //     flyhook.moveFly(0);
+        //     drive.moveAllFourTo(-1,-1,-1,-1);
+        // }
+        // else if (time.get() < 7.1 + delay_before_taxi){
+        //     drive.zeromotors();
+        // }
+        // else if (time.get() < 9 + delay_before_taxi){
+
+        //     drive.moveAllFourToDegrees(.5,.5,.5,.5);
+        //     //drive.moveAllFourToTURNS(0.5,-0.5,0.5,-0.5);
+        // }
+        // else if (time.get() < 9.1 + delay_before_taxi){
+        //     drive.zeromotors();
+        // }
+        // else if (time.get() < 12 + delay_before_taxi){
+        //     drive.moveAllFourTo(-2,-2,-2,-2);
+        // }
+        // else if (time.get() < 12.1 + delay_before_taxi){
+        //     drive.zeromotors();
+        // }
+        // else {
+        //     drive.moveAllFourTo(0,0,0,0);
+        // }
+        
 
 
 
 
+        //case 2: Left of speaker
+
+        // if (time.get() < 1){
+        //     shootTimer.reset();
+        //     //shootTimer.start();
+        //     shootTimer.start();
+        // }
+        // else if (time.get() < 4){
+        //     drive.moveFL(0);
+        //     drive.moveFR(0);
+        //     drive.moveBL(0);
+        //     drive.moveBR(0);
+        //     if (shootTimer.get() < 1.25){
+        //         flyhook.moveTopFlyWheel(1);
+        //     }
+        //     else {
+        //         flyhook.moveTopFlyWheel(1);
+        //         flyhook.moveBottomFlyWheel(1);
+        //     }
+        //     drive.zeromotors();   
+        // }
+        // else if (time.get() < 7 + delay_before_taxi){
+        //     flyhook.moveFly(0);
+        //     drive.moveAllFourTo(-1,-1,-1,-1);
+        // }
+        // else if (time.get() < 7.1 + delay_before_taxi){
+        //     drive.zeromotors();
+        // }
+        // else if (time.get() < 9 + delay_before_taxi){
+        //     drive.moveAllFourToDegrees(-.5,-.5,-.5,-.5);
+            
+        //     //drive.moveAllFourToTURNS(-0.25,0.25,-0.25,0.25);
+        // }
+        // else if (time.get() < 9.1 + delay_before_taxi){
+        //     drive.zeromotors();
+        // }
+        // else if (time.get() < 12 + delay_before_taxi){
+        //     drive.moveAllFourTo(-2,-2,-2,-2);
+        // }
+        // else if (time.get() < 12.1 + delay_before_taxi){
+        //     drive.zeromotors();
+        // }
+        // else {
+        //     drive.moveAllFourTo(0,0,0,0);
+        // }
+
+        
+        //END CASE
+
+
+
+
+
+
+        //CASE 3: Middle of Speaker:
+
+        if (time.get() < 1){
             shootTimer.reset();
             //shootTimer.start();
             shootTimer.start();
         }
-
-        else if (time.get() > 4 && time.get() < 6){
+        else if (time.get() < 4){
             drive.moveFL(0);
             drive.moveFR(0);
             drive.moveBL(0);
@@ -133,27 +165,153 @@ public class AutonomousCommand extends Command{
                 flyhook.moveTopFlyWheel(1);
                 flyhook.moveBottomFlyWheel(1);
             }
-            
+            drive.zeromotors();   
         }
-        else if (time.get() > 6 && time.get() < 6.1){
-            drive.zeromotors();
+        else if (time.get() < 7 + delay_before_taxi){
             flyhook.moveFly(0);
+            drive.moveAllFourTo(-1,-1,-1,-1);
         }
-        else if (time.get() > 6.1 && time.get() < 9){
-            //drive.moveAllFourTo(-2,-2,-2,-2);
-        }
-        else if (time.get() > 9 && time.get() < 9.1){
+        else if (time.get() < 7.1 + delay_before_taxi){
             drive.zeromotors();
         }
-        // else if (time.get() > 9.1 && time.get() < 12){
-        //     //drive.moveAllFourToDegrees(180, 180, 180, 180);
+        // else if (time.get() < 9 + delay_before_taxi){
+        //     //drive.moveAllFourToTURNS(0.25,0.25,0.25,0.25);
         // }
-        // else if (time.get() > 12 && time.get() < 12.1){
+        // else if (time.get() < 9.1 + delay_before_taxi){
         //     drive.zeromotors();
         // }
+        else if (time.get() < 7.1 + delay_before_taxi){
+            drive.moveAllFourTo(-1,-1,-1,-1);
+        }
+        else if (time.get() < 9 + delay_before_taxi){
+            drive.zeromotors();
+        }
         else {
             drive.moveAllFourTo(0,0,0,0);
         }
+
+
+        //END CASE
+
+
+
+
+        //30000 per 360
+        //30000/4 = 7500
+        //drive.customMoveFLTo(10000);
+        // if (time.get() < 4){
+
+
+
+
+
+        //     //WARNING: IF OTHER THAN CENTER COMMENT OUT
+
+        //     //  double Kp = -0.1f;
+        //     // double min_command = 0.05f;
+
+        //     // double heading_error = -values.getTx();
+        //     // double steering_adjust = 0.0;
+            
+        //     // double sadj = 0.11;
+
+
+        //     // //HEADING ERROR CALCULATIONS
+
+
+        //     // if (Math.abs(heading_error) > 0.7) 
+        //     // {
+        //     //     if (heading_error < 0) 
+        //     //     {
+        //     //         steering_adjust = Kp*heading_error + min_command;
+        //     //     } 
+        //     //     else 
+        //     //     {
+        //     //         steering_adjust = Kp*heading_error - min_command;
+        //     //     }
+        //     // } 
+        //     // //left_command += steering_adjust;
+        //     // //right_command -= steering_adjust;
+        
+        //     // //displays stuff, and this doubles down and gets the distance from the goal. 
+        //     // SmartDashboard.putNumber("heading_error",heading_error);
+        //     // double xdist = values.getInchesFromGoal();
+        //     // double err = 4;
+        //     // double targ = 42;
+        //     // double sp = 0;
+        //     // //double dif = Math.abs(xdist - targ);
+        //     // //double inc = 0.005;
+        //     // if (Math.abs(targ - xdist) >= err)
+        //     // {
+        //     //     if (targ-xdist > 0){
+        //     //         sp = sadj;
+        //     //     }
+        //     //     else
+        //     //     {
+        //     //         sp = -sadj;
+        //     //     }
+        //     // }
+        //     // else
+        //     // {
+        //     //     sp = 0;
+        //     // }
+        //     // //drives the steering to the sum of both of the adjusted movements. 
+        //     // SmartDashboard.putNumber("Steering_adjust: ", steering_adjust);
+        //     // //PART THAT MAKES STUFF MOVE
+        //     // drive.moveFL(-0.1*steering_adjust+sp);
+        //     // drive.moveFR(0.1*steering_adjust+sp);
+        //     // drive.moveBL(-0.1*steering_adjust+sp);
+        //     // drive.moveBR(0.1*steering_adjust+sp);
+        //     // //tank.drive, 0.1*steering_adjust+sp);
+        //     // if (values.getTv() == 0){
+        //     //     // tank.drive(0,0);
+        //     //     drive.moveFL(0);
+        //     //     drive.moveFR(0);
+        //     //     drive.moveBL(0);
+        //     //     drive.moveBR(0);
+        //     // }
+
+
+
+
+        //     shootTimer.reset();
+        //     //shootTimer.start();
+        //     shootTimer.start();
+        // }
+
+        // else if (time.get() > 4 && time.get() < 6){
+        //     drive.moveFL(0);
+        //     drive.moveFR(0);
+        //     drive.moveBL(0);
+        //     drive.moveBR(0);
+        //     if (shootTimer.get() < 1.25){
+        //         flyhook.moveTopFlyWheel(1);
+        //     }
+        //     else {
+        //         flyhook.moveTopFlyWheel(1);
+        //         flyhook.moveBottomFlyWheel(1);
+        //     }
+            
+        // }
+        // else if (time.get() > 6 && time.get() < 6.1){
+        //     drive.zeromotors();
+        //     flyhook.moveFly(0);
+        // }
+        // else if (time.get() > 6.1 && time.get() < 9){
+        //     //drive.moveAllFourTo(-2,-2,-2,-2);
+        // }
+        // else if (time.get() > 9 && time.get() < 9.1){
+        //     drive.zeromotors();
+        // }
+        // // else if (time.get() > 9.1 && time.get() < 12){
+        // //     //drive.moveAllFourToDegrees(180, 180, 180, 180);
+        // // }
+        // // else if (time.get() > 12 && time.get() < 12.1){
+        // //     drive.zeromotors();
+        // // }
+        // else {
+        //     drive.moveAllFourTo(0,0,0,0);
+        // }
         
     
 

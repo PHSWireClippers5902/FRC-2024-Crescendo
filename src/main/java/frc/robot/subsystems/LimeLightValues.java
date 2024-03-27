@@ -114,19 +114,19 @@ public class LimeLightValues extends SubsystemBase{
 
         //calculate distance
         distanceFromLimelightToGoalInches = (goalHeightInches - limelightLensHeightInches) / Math.tan(angleToGoalRadians);
-        SmartDashboard.putNumber("Tan(Angle)", Math.tan(angleToGoalRadians));
-        SmartDashboard.putNumber("angletoGoalRadian", angleToGoalRadians);
+        // SmartDashboard.putNumber("Tan(Angle)", Math.tan(angleToGoalRadians));
+        // SmartDashboard.putNumber("angletoGoalRadian", angleToGoalRadians);
         
         
 
         if (angleToGoalDegrees == -4) {
-            SmartDashboard.putNumber("Distance from LimeLight in Inches: ",0);
+         //   SmartDashboard.putNumber("Distance from LimeLight in Inches: ",0);
             return 0;
 
         }
         else {
 
-        SmartDashboard.putNumber("Distance from LimeLight in Inches: ",distanceFromLimelightToGoalInches);
+       // SmartDashboard.putNumber("Distance from LimeLight in Inches: ",distanceFromLimelightToGoalInches);
         return distanceFromLimelightToGoalInches;
         }
     }
