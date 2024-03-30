@@ -25,7 +25,7 @@ public class MecanumSystem extends SubsystemBase{
     //     linear.set(speed);
     // }
     
-    double MAX_VELOCITY = 4800;
+    double MAX_VELOCITY = 4000;
     public double MecanumColor = 0.99;
     //initializes motor controllers with hookbot constants. 
     WPI_TalonSRX frontLeft = new WPI_TalonSRX(4);
@@ -440,7 +440,7 @@ public class MecanumSystem extends SubsystemBase{
     //these four methods just set the speeds of individual stuff. 
     
     public void moveFL(double speed){
-        //SmartDashboard.putNumber("frontLeftVel", frontLeft.getSelectedSensorVelocity(0));
+        SmartDashboard.putNumber("frontLeftVel", frontLeft.getSelectedSensorVelocity(0));
 
         //SmartDashboard.putNumber("FLSPEED", speed);
         frontLeft.set(ControlMode.Velocity,speed*MAX_VELOCITY);
@@ -448,8 +448,9 @@ public class MecanumSystem extends SubsystemBase{
         //frontLeft.setVoltage(0);
 
     }
+
     public void moveFR(double speed){
-        //SmartDashboard.putNumber("frontRightVel", frontRight.getSelectedSensorVelocity(0));
+        SmartDashboard.putNumber("frontRightVel", frontRight.getSelectedSensorVelocity(0));
 
         //SmartDashboard.putNumber("FRSPEED", speed);
         frontRight.set(ControlMode.Velocity,speed*MAX_VELOCITY);
@@ -457,14 +458,14 @@ public class MecanumSystem extends SubsystemBase{
 
     }
     public void moveBL(double speed){
-        //SmartDashboard.putNumber("backLeftVel", backLeft.getSelectedSensorVelocity(0));
+        SmartDashboard.putNumber("backLeftVel", backLeft.getSelectedSensorVelocity(0));
         //SmartDashboard.putNumber("BLSPEED", speed);
         backLeft.set(ControlMode.Velocity,speed*MAX_VELOCITY);
         //backLeft.set(speed);
 
     }
     public void moveBR(double speed){
-        //SmartDashboard.putNumber("backRightVel", backRight.getSelectedSensorVelocity(0));
+        SmartDashboard.putNumber("backRightVel", backRight.getSelectedSensorVelocity(0));
         //SmartDashboard.putNumber("BRSPEED", speed);
 
         backRight.set(ControlMode.Velocity,speed*MAX_VELOCITY);

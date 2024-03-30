@@ -42,7 +42,7 @@ public class AutonomousCommand extends Command{
         int delay_before_taxi = 0;
         //will b split depending on what code u want
         
-        //case one: right of speaker
+        //case one: right of speaker (amp Sideif BLUE, source side if RED)
 
         // if (time.get() < 1){
         //     shootTimer.reset();
@@ -65,15 +65,15 @@ public class AutonomousCommand extends Command{
         // }
         // else if (time.get() < 7 + delay_before_taxi){
         //     flyhook.moveFly(0);
-        //     drive.moveAllFourTo(-1,-1,-1,-1);
+        //     //drive.moveAllFourTo(-1,-1,-1,-1);
         // }
         // else if (time.get() < 7.1 + delay_before_taxi){
         //     drive.zeromotors();
         // }
         // else if (time.get() < 9 + delay_before_taxi){
 
-        //     drive.moveAllFourToDegrees(.5,.5,.5,.5);
-        //     //drive.moveAllFourToTURNS(0.5,-0.5,0.5,-0.5);
+        //     //drive.moveAllFourToDegrees(.5,.5,.5,.5);
+        //     drive.moveAllFourToTURNS(0.5,-0.5,0.5,-0.5);
         // }
         // else if (time.get() < 9.1 + delay_before_taxi){
         //     drive.zeromotors();
@@ -92,7 +92,7 @@ public class AutonomousCommand extends Command{
 
 
 
-        //case 2: Left of speaker
+        //case 2: Left of speaker (source side if BLUE, amp side if RED)
 
         // if (time.get() < 1){
         //     shootTimer.reset();
@@ -154,10 +154,10 @@ public class AutonomousCommand extends Command{
             shootTimer.start();
         }
         else if (time.get() < 4){
-            drive.moveFL(0);
-            drive.moveFR(0);
-            drive.moveBL(0);
-            drive.moveBR(0);
+            // drive.moveFL(0);
+            // drive.moveFR(0);
+            // drive.moveBL(0);
+            // drive.moveBR(0);
             if (shootTimer.get() < 1.25){
                 flyhook.moveTopFlyWheel(1);
             }
@@ -165,14 +165,14 @@ public class AutonomousCommand extends Command{
                 flyhook.moveTopFlyWheel(1);
                 flyhook.moveBottomFlyWheel(1);
             }
-            drive.zeromotors();   
+            //drive.zeromotors();   
         }
         else if (time.get() < 7 + delay_before_taxi){
             flyhook.moveFly(0);
-            drive.moveAllFourTo(-1,-1,-1,-1);
+            //drive.moveAllFourTo(-1,-1,-1,-1);
         }
         else if (time.get() < 7.1 + delay_before_taxi){
-            drive.zeromotors();
+            //drive.zeromotors();
         }
         // else if (time.get() < 9 + delay_before_taxi){
         //     //drive.moveAllFourToTURNS(0.25,0.25,0.25,0.25);
@@ -181,13 +181,13 @@ public class AutonomousCommand extends Command{
         //     drive.zeromotors();
         // }
         else if (time.get() < 7.1 + delay_before_taxi){
-            drive.moveAllFourTo(-1,-1,-1,-1);
+           // drive.moveAllFourTo(-1,-1,-1,-1);
         }
         else if (time.get() < 9 + delay_before_taxi){
-            drive.zeromotors();
+            //drive.zeromotors();
         }
         else {
-            drive.moveAllFourTo(0,0,0,0);
+            //drive.moveAllFourTo(0,0,0,0);
         }
 
 

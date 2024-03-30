@@ -22,9 +22,12 @@ public class DriveWithTank extends Command {
   
   private Joystick js;
   private double left,right,pivot,leftx,vert,horiz;
-  public double speed = 0.3;
+  public double speed = 0.25;
+  public double sideSpeed = 0.25;
+  public double strafeSpeed = 0.5;
   Timer lightTimer = new Timer();
   Timer ampTimer = new Timer();
+  Timer trapTimer = new Timer();
   //private DigitalInput frontLeft, frontRight, backLeft, backRight;
   private XboxController xboxtonk;
 
@@ -35,6 +38,8 @@ public class DriveWithTank extends Command {
     lightTimer.reset();
     ampTimer.reset();
     ampTimer.start();
+    trapTimer.reset();
+    trapTimer.start();
     m_mecanum.teleopConfigs();
     addRequirements(m_mecanum);
     
@@ -97,10 +102,15 @@ public class DriveWithTank extends Command {
       //   m_mecanum.zeromotors();
 
       // }
+      SmartDashboard.putNumber("Velocity: ",m_mecanum.asBL);
       if (xboxtonk.getLeftBumper()){
         speed = 0.9;
+        sideSpeed = 0.9;
+        strafeSpeed = 0.9;
       }else {
-        speed = 0.3;
+        speed = 0.25;
+        sideSpeed = 0.6;
+        strafeSpeed = 0.5;
       }
       // if (js.getTrigger()){
       //   speed = 0.1;
@@ -115,7 +125,33 @@ public class DriveWithTank extends Command {
       // SmartDashboard.putNumber("pivot",pivot);
       // SmartDashboard.putNumber("Vert: ",vert);
       // SmartDashboard.putNumber("Horiz",horiz);
-      if (xboxtonk.getXButton()){
+      if (xboxtonk.getPOV() == 90){
+        if (trapTimer.get() < 0.1){
+          m_mecanum.zeromotors();
+        }
+        else if (trapTimer.get()  < 4 && trapTimer.get() > 0.1){
+          // m_mecanum.moveBL(0.1);
+          // m_mecanum.moveBR(0.1);
+          // m_mecanum.moveFL(0.1);
+          // m_mecanum.moveFR(0.1);
+          
+          m_mecanum.moveAllFourTo(-0.21,-0.21,-0.21,-0.21);
+        }
+        // else  if (trapTimer.get() > 4 && trapTimer.get() < 5){
+        //   m_mecanum.moveAllFourToTURNS(-.2,.2,.2,-.2);
+        // }
+        else {
+            m_mecanum.moveBL(0);
+            m_mecanum.moveBR(0);
+            m_mecanum.moveFL(0);
+            m_mecanum.moveFR(0);
+        }
+      }
+      // else {
+        
+      // }
+
+      else if (xboxtonk.getXButton()){
         //m_mecanum.percentSpeeds();
         //m_mecanum.changeColor(0.57);
 
@@ -159,10 +195,15 @@ public class DriveWithTank extends Command {
         ampTimer.reset();
         ampTimer.start();
         
-      m_mecanum.moveBL(speed*(pivot+vert-horiz));
-      m_mecanum.moveFR(speed*(-pivot+vert-horiz));
-      m_mecanum.moveBR(speed*(-pivot+vert+horiz));
-      m_mecanum.moveFL(speed*(pivot+vert+horiz));
+      trapTimer.reset();
+        trapTimer.start();
+
+
+
+      m_mecanum.moveBL(speed*(vert)-strafeSpeed*(horiz)+sideSpeed*pivot);
+      m_mecanum.moveFR(speed*(vert)-strafeSpeed*(horiz)-sideSpeed*pivot);
+      m_mecanum.moveBR(speed*(vert)+strafeSpeed*(horiz)-sideSpeed*pivot);
+      m_mecanum.moveFL(speed*(vert)+strafeSpeed*(horiz)+sideSpeed*pivot);
         // m_mecanum.moveFL(speed*horiz);
         // m_mecanum.moveBL(-speed*horiz);
         // m_mecanum.moveFR(-speed*horiz);
@@ -181,6 +222,7 @@ public class DriveWithTank extends Command {
       // else if (xboxtonk.getPOV() == 180){
       //   m_mecanum.changeColor(-.95);
       // }
+      // m_mecanum.moveFL(1);
     
       
   }

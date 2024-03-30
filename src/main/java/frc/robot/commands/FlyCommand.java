@@ -15,6 +15,7 @@ public class FlyCommand extends Command{
     Timer lightTimer = new Timer();
     Timer shootTimer = new Timer();
     Timer ampTimer = new Timer();
+    Timer trapTimer = new Timer();
     XboxController m_xbox;
     double hookpos = 0;
     FlyWheelAndHook wheel;
@@ -28,6 +29,8 @@ public class FlyCommand extends Command{
         shootTimer.start();
         ampTimer.reset();
         ampTimer.start();
+        trapTimer.reset();
+        trapTimer.start();
         wheel = fly;
         
         addRequirements(wheel);
@@ -154,12 +157,15 @@ public class FlyCommand extends Command{
             wheel.moveHook(-0.8);
         }
         else if (m_xbox.getAButton()){
-            wheel.moveHook(0.8);
+            if (!wheel.getLimitSwitch()){
+                
+                wheel.moveHook(0.8);
+            }
         }
         
-        else if (m_xbox.getLeftTriggerAxis() > 0.1){
-            wheel.encoderLock(0);
-        }
+        // else if (m_xbox.getLeftTriggerAxis() > 0.1){
+        //     wheel.encoderLock(0);
+        // }
         else if (m_xbox.getPOV() == 180){
             // if (wheel.getHookPos() > 270){
             //     wheel.moveHook(0);
@@ -197,12 +203,29 @@ public class FlyCommand extends Command{
         //System.out.println(wheel.getLimitSwitch());
         if (m_xbox.getPOV() == 270){
             if (wheel.getTopLimitSwitch()){
+                wheel.zeroHook();
                 wheel.moveHook(0.01);
             }
             else {
                 wheel.moveHook(-0.2);
             }
 
+        }
+        double buffer = 4;
+        if (m_xbox.getPOV() == 90){
+                if (trapTimer.get() > buffer){
+                    if (trapTimer.get() < buffer+1.25){
+                    wheel.moveTopFlyWheel(.87);
+                }
+                else {
+                    wheel.moveTopFlyWheel(.87);
+                    wheel.moveBottomFlyWheel(1);
+                }
+            }
+        }
+        else {
+            trapTimer.reset();
+            trapTimer.start();
         }
         // if (m_xbox.getXButton()){
         //     wheel.moveFly(0);
@@ -221,6 +244,9 @@ public class FlyCommand extends Command{
         // else {
         //     //wheel.neutralActuator();
         // }
+        if (wheel.getLimitSwitch()){
+            wheel.moveHook(0);
+        }
 
         
     }
